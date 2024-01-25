@@ -1,0 +1,27 @@
+---
+- name: Install tzdata
+  ansible.builtin.apt:
+    pkg:
+      - tzdata
+    state: latest
+  become: true
+ 
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ ubuntu_timezone }}"
+  become: true
+
+- name: Install ntp
+  ansible.builtin.apt:
+    pkg:   ntp
+    state: latest
+  become: true
+  when: ubuntu_ntp_enable
+
+- name: Enable ntp
+  ansible.builtin.service:
+    name: ntp
+    state: started
+    enabled: true
+  become: true
+  when: ubuntu_ntp_enable

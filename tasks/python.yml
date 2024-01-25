@@ -1,0 +1,29 @@
+---
+- name: apt install python3
+  ansible.builtin.apt:
+    pkg:
+      - python3
+      - python3-pip
+    state: latest
+  become: true
+
+- name: use python3 by default
+  community.general.alternatives:
+    name: python
+    path: /usr/bin/python3
+    link: /usr/bin/python
+  become: true
+
+- name: pip upgrade pip
+  ansible.builtin.pip:
+    name: pip
+    state: latest
+  become: true
+
+- name: pip install python3 tools
+  ansible.builtin.pip:
+    name:
+      - virtualenv
+      - setuptools
+    state: latest
+  become: true

@@ -1,0 +1,36 @@
+---
+- name: apt update cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600 # 1 hr
+    force_apt_get: true # aptitude may not be installed
+  become: true
+
+- name: apt update
+  ansible.builtin.import_tasks: apt-update.yml
+
+- name: python update
+  ansible.builtin.import_tasks: python.yml
+
+- name: Install Ansible prerequisites
+  ansible.builtin.import_tasks: ansible.yml
+
+- name: Configure message of the day (motd)
+  ansible.builtin.import_tasks: login-motd.yml
+
+- name: Configure timezone and ntp
+  ansible.builtin.import_tasks: time.yml
+
+- name: Query restart required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: stat_result
+  changed_when: stat_result.stat.exists
+
+- name: Restart system
+  ansible.builtin.reboot:
+    msg: "Ansible reboot"
+  become: true
+  when:
+    - stat_result.stat.exists
+    - inventory_hostname != "localhost"

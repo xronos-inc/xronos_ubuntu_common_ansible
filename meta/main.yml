@@ -1,0 +1,11 @@
+galaxy_info:
+  role_name: xronos-ubuntu-common-ansible
+  author: Xronos, Inc.
+  description: "Common package management and configuration for Ubuntu servers."
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+collections:
+  - community.general

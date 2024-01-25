@@ -1,0 +1,5 @@
+# Ubuntu timezone
+ubuntu_timezone: America/Los_Angeles
+
+# Install and enable NTP service?
+ubuntu_ntp_enable: true

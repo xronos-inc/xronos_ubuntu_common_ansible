@@ -1,0 +1,27 @@
+---
+- name: apt install aptitude
+  ansible.builtin.apt:
+    pkg:
+      - aptitude
+    state: latest
+  become: true
+
+- name: apt install prerequisites
+  ansible.builtin.apt:
+    pkg:
+     - apt-transport-https
+     - ca-certificates
+     - software-properties-common
+    state: latest
+  become: true
+
+- name: apt upgrade packages
+  ansible.builtin.apt:
+    upgrade: true
+  become: true
+
+- name: apt autoremove
+  ansible.builtin.apt:
+    autoremove: true
+    purge: true
+  become: true
