@@ -25,5 +25,6 @@
     name:
       - virtualenv
       - setuptools
+      - psutil 
     state: latest
   become: true
