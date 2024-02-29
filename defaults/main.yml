@@ -3,3 +3,9 @@ ubuntu_timezone: America/Los_Angeles
 
 # Install and enable NTP service?
 ubuntu_ntp_enable: true
+
+# remove clutter from motd?
+ubuntu_trim_motd: false
+
+# apt upgrade packages?
+ubuntu_apt_upgrade: false

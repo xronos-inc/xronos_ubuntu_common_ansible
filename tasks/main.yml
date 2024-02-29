@@ -16,7 +16,8 @@
   ansible.builtin.import_tasks: ansible.yml
 
 - name: Configure message of the day (motd)
-  ansible.builtin.import_tasks: login-motd.yml
+  ansible.builtin.include_tasks: login-motd.yml
+  when: ubuntu_trim_motd
 
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml

@@ -19,9 +19,11 @@
   ansible.builtin.apt:
     upgrade: true
   become: true
+  when: ubuntu_apt_upgrade
 
 - name: apt autoremove
   ansible.builtin.apt:
     autoremove: true
     purge: true
   become: true
+  when: ubuntu_apt_upgrade
