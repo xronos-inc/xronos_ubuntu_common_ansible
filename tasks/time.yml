@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     pkg:
       - tzdata
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
  
 - name: Set timezone
@@ -14,7 +14,7 @@
 - name: Install ntp
   ansible.builtin.apt:
     pkg:   ntp
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
   when: ubuntu_ntp_enable
 

@@ -1,0 +1,5 @@
+- name: Restart server
+  ansible.builtin.reboot:
+  become: true
+  when:
+    - inventory_hostname != "localhost"

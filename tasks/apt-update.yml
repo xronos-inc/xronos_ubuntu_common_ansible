@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     pkg:
       - aptitude
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
 - name: apt install prerequisites
@@ -12,7 +12,7 @@
      - apt-transport-https
      - ca-certificates
      - software-properties-common
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
 - name: apt upgrade packages

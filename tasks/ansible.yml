@@ -5,7 +5,7 @@
     name:
       - boto3
       - botocore
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
 # enable Ansible to sudo as unprivileged user
@@ -14,7 +14,7 @@
     pkg:
       - sudo
       - acl
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
 # enable ansible unzip module, as well as embedded unzip
@@ -26,5 +26,5 @@
       - gzip
       - curl
       - wget
-    state: latest
+    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true

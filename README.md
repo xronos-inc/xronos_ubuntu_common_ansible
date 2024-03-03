@@ -24,5 +24,7 @@ Add this role to your Ansible playbook file.
 
 ## Variables
 
-- `ubuntu_timezone`  Timezone to set. Defaults to `America/Los_Angeles`.
-- `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`.
+- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `false`.
+- `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`
+- `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`
+- `ubuntu_trim_motd` Trim MOTD to minimal messages? Defaults to `false`
