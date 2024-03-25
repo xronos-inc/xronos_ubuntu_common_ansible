@@ -9,3 +9,6 @@ ubuntu_trim_motd: false
 
 # apt upgrade packages?
 ubuntu_apt_upgrade: false
+
+# disable unattended upgrades?
+ubuntu_disable_unattended_upgrades: true

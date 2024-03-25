@@ -10,6 +10,7 @@ This role is a standard configuration for Ubuntu systems used at Xronos.
 This role was forked from [elgeeko1/elgeeko1-ubuntu-common-ansible](https://github.com/elgeeko1/elgeeko1-ubuntu-common-ansible)
 
 ## Requirements
+
 Provisioning host:
 
 - ansible 2.15 or later
@@ -30,6 +31,7 @@ Add this role to your Ansible playbook file.
 ## Variables
 
 - `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `false`.
+- `ubuntu_disable_unattended_upgrades` Disable unattended upgrades? Defaults to `true`.
 - `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`
 - `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`
 - `ubuntu_trim_motd` Trim MOTD to minimal messages? Defaults to `false`

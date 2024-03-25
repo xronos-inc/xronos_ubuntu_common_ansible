@@ -19,6 +19,10 @@
   ansible.builtin.include_tasks: login-motd.yml
   when: ubuntu_trim_motd
 
+- name: Disable unattended upgrades
+  ansible.builtin.include_tasks: unattended-upgrades.yml
+  when: ubuntu_disable_unattended_upgrades
+
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml
 
