@@ -1,8 +1,7 @@
 ---
-- name: apt install python3
+- name: apt install python3-pip
   ansible.builtin.apt:
     pkg:
-      - python3
       - python3-pip
     state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
