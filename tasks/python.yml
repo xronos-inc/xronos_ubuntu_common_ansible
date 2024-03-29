@@ -7,13 +7,6 @@
     state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
-- name: use python3 by default
-  community.general.alternatives:
-    name: python
-    path: /usr/bin/python3
-    link: /usr/bin/python
-  become: true
-
 - name: pip upgrade pip
   ansible.builtin.pip:
     name: pip
