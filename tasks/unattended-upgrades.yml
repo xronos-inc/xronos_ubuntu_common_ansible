@@ -13,16 +13,6 @@
     line: 'APT::Periodic::Unattended-Upgrade "0";'
   become: true
 
-- name: Apt remove unattended-upgrades and update-notifier
-  ansible.builtin.apt:
-    pkg:
-      - unattended-upgrades
-      - update-notifier
-      - update-notifier-common
-      - update-manager
-    state: absent
-  become: true
-
 - name: Systemd disable service apt-daily-upgrade
   ansible.builtin.systemd:
     service: apt-daily-upgrade
