@@ -2,7 +2,7 @@ galaxy_info:
   role_name: xronos_ubuntu_common_ansible
   company: Xronos Inc.
   description: "Common package management and configuration for Ubuntu servers."
-  license: BSD-3
+  license: BSD-3-Clause
   platforms:
     - name: Ubuntu
       versions:
