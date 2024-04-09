@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: © 2024 Xronos Inc.
+# SPDX-License-Identifier: BSD-3-Clause
 ---
 # boto3 is used by some Ansible AWS tasks (when run on the host)
 - name: Install boto3
