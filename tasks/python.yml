@@ -8,17 +8,11 @@
     state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
-- name: pip upgrade pip
-  ansible.builtin.pip:
-    name: pip
-    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
-  become: true
-
 - name: pip install python3 tools
-  ansible.builtin.pip:
-    name:
-      - virtualenv
-      - setuptools
-      - psutil 
+  ansible.builtin.apt:
+    pkg:
+      - python3-virtualenv
+      - python3-setuptools
+      - python3-psutil 
     state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true

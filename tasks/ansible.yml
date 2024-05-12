@@ -3,10 +3,10 @@
 ---
 # boto3 is used by some Ansible AWS tasks (when run on the host)
 - name: Install boto3
-  ansible.builtin.pip:
-    name:
-      - boto3
-      - botocore
+  ansible.builtin.apt:
+    pkg:
+      - python3-boto3
+      - python3-botocore
     state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
   become: true
 
