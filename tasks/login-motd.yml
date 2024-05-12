@@ -7,10 +7,12 @@
     state: absent
   become: true
 
-- name: Remove news message of the day
-  ansible.builtin.file:
-    path:  /etc/update-motd.d/50-motd-news
-    state: absent
+- name: Set news message of the day to empty
+  ansible.builtin.copy:
+    content: ""
+    dest:  /etc/update-motd.d/50-motd-news
+    force: true
+    mode: 0755
   become: true
 
 - name: Remove contract-us-esm message of the day

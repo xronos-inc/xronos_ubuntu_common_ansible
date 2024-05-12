@@ -24,6 +24,7 @@
 - name: Disable unattended upgrades
   ansible.builtin.include_tasks: unattended-upgrades.yml
   when: ubuntu_disable_unattended_upgrades
+    and ansible_distribution == 'Ubuntu'
 
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml
