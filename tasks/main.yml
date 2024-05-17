@@ -8,6 +8,16 @@
     force_apt_get: true # aptitude may not be installed
   become: true
 
+- name: Stat /var/cache/xronos_ubuntu_common_ansible_upgraded
+  ansible.builtin.stat:
+    path: /var/cache/xronos_ubuntu_common_ansible_upgraded
+  register: upgraded
+
+- name: Set fact apply_upgrades
+  ansible.builtin.set_fact:
+    apply_upgrades: ubuntu_apt_upgrade == 'always'
+      or (ubuntu_apt_upgrade == 'once' and not upgraded.stat.exists)
+
 - name: apt update
   ansible.builtin.import_tasks: apt-update.yml
 
@@ -28,6 +38,14 @@
 
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml
+
+- name: Write /var/cache/xronos_ubuntu_common_ansible_upgraded
+  when: apply_upgrades
+  ansible.builtin.copy:
+    content: ""
+    dest: /var/cache/xronos_ubuntu_common_ansible_upgraded
+    force: false
+  become: true
 
 - name: Query restart required
   ansible.builtin.stat:

@@ -5,7 +5,7 @@
   ansible.builtin.apt:
     pkg:
       - aptitude
-    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
+    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
   become: true
 
 - name: apt install prerequisites
@@ -14,18 +14,18 @@
      - apt-transport-https
      - ca-certificates
      - software-properties-common
-    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
+    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
   become: true
 
 - name: apt upgrade packages
+  when: apply_upgrades
   ansible.builtin.apt:
     upgrade: true
   become: true
-  when: ubuntu_apt_upgrade
 
 - name: apt autoremove
+  when: apply_upgrades
   ansible.builtin.apt:
     autoremove: true
     purge: true
   become: true
-  when: ubuntu_apt_upgrade

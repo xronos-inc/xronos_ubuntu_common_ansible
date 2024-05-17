@@ -5,7 +5,7 @@
   ansible.builtin.apt:
     pkg:
       - python3-pip
-    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
+    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
   become: true
 
 - name: pip install python3 tools
@@ -14,5 +14,5 @@
       - python3-virtualenv
       - python3-setuptools
       - python3-psutil 
-    state: "{{ ubuntu_apt_upgrade | ternary('latest', 'present') }}"
+    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
   become: true
