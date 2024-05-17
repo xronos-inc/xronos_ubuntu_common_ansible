@@ -30,7 +30,7 @@ Add this role to your Ansible playbook file.
 
 ## Variables
 
-- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `false`.
+- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `"once"` to upgrade once per host, after which only `present` is checked.
 - `ubuntu_disable_unattended_upgrades` Disable unattended upgrades? Defaults to `true`.
 - `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`
 - `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`
