@@ -15,8 +15,8 @@
 
 - name: Set fact apply_upgrades
   ansible.builtin.set_fact:
-    apply_upgrades: ubuntu_apt_upgrade == 'always'
-      or (ubuntu_apt_upgrade == 'once' and not upgraded.stat.exists)
+    apply_upgrades: "{{ (ubuntu_apt_upgrade == 'always')
+      or ((ubuntu_apt_upgrade == 'once') and not upgraded.stat.exists) }}"
 
 - name: apt update
   ansible.builtin.import_tasks: apt-update.yml
