@@ -4,8 +4,8 @@
 # Modifications Copyright © 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# This file contains portions from Jeff C. Jensen under MIT and
-# modifications and modifications by Xronos Inc. under BSD-3-Clause.
+# This file contains portions from Jeff C. Jensen under MIT 
+# and modifications by Xronos Inc. under BSD-3-Clause.
 ---
 - name: apt update cache
   ansible.builtin.apt:
