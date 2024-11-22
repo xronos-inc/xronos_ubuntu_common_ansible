@@ -7,8 +7,6 @@ This role is a standard configuration for Ubuntu systems used at Xronos.
 - timezone configuration
 - prerequisites for common Ansible modules
 
-This role was forked from [elgeeko1/elgeeko1-ubuntu-common-ansible](https://github.com/elgeeko1/elgeeko1-ubuntu-common-ansible)
-
 ## Requirements
 
 Provisioning host:
