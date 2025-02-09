@@ -1,0 +1,34 @@
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
+# SPDX-License-Identifier: MIT
+#
+# Modifications Copyright (c) 2024 Xronos Inc.
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# This file contains portions from Jeff C. Jensen under MIT 
+# and modifications by Xronos Inc. under BSD-3-Clause.
+---
+- name: Stat /var/cache/xronos_ubuntu_common_ansible_upgraded
+  register: _upgraded
+  ansible.builtin.stat:
+    path: /var/cache/xronos_ubuntu_common_ansible_upgraded
+
+- name: apt upgrade packages
+  when: ubuntu_apt_upgrade == 'always'
+      or (ubuntu_apt_upgrade == 'once') and not _upgraded.stat.exists
+  become: true
+  ansible.builtin.apt:
+    upgrade: safe
+  
+- name: apt autoremove
+  become: true
+  ansible.builtin.apt:
+    autoremove: true
+
+- name: Write /var/cache/xronos_ubuntu_common_ansible_upgraded
+  when: ubuntu_apt_upgrade == 'always'
+      or ubuntu_apt_upgrade == 'once'
+  become: true
+  ansible.builtin.copy:
+    content: ""
+    dest: /var/cache/xronos_ubuntu_common_ansible_upgraded
+    force: false

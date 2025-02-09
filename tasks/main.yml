@@ -1,31 +1,36 @@
-# SPDX-FileCopyrightText: © 2021 Jeff C. Jensen
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
 # SPDX-License-Identifier: MIT
 #
-# Modifications Copyright © 2024 Xronos Inc.
+# Modifications Copyright (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # This file contains portions from Jeff C. Jensen under MIT 
 # and modifications by Xronos Inc. under BSD-3-Clause.
 ---
 - name: apt update cache
+  become: true
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600 # 1 hr
     force_apt_get: true # aptitude may not be installed
+
+- name: apt prerequisites
+  ansible.builtin.import_tasks: apt.yml
+
+- name: Configure snapshots for all repositories that support them
+  register: _snapshot
   become: true
+  ansible.builtin.copy:
+    dest: /etc/apt/apt.conf.d/50snapshot
+    content: "{{ ('APT::Snapshot \"' ~ ubuntu_snapshot ~ '\";') if ubuntu_snapshot else '' }}"
 
-- name: Stat /var/cache/xronos_ubuntu_common_ansible_upgraded
-  ansible.builtin.stat:
-    path: /var/cache/xronos_ubuntu_common_ansible_upgraded
-  register: upgraded
+- name: apt update cache to apply snapshot change
+  become: true
+  ansible.builtin.apt:
+    update_cache: "{{ _snapshot.changed }}"
 
-- name: Set fact apply_upgrades
-  ansible.builtin.set_fact:
-    apply_upgrades: "{{ (ubuntu_apt_upgrade == 'always')
-      or ((ubuntu_apt_upgrade == 'once') and not upgraded.stat.exists) }}"
-
-- name: apt update
-  ansible.builtin.import_tasks: apt-update.yml
+- name: apt upgrade
+  ansible.builtin.import_tasks: upgrade.yml
 
 - name: python update
   ansible.builtin.import_tasks: python.yml
@@ -45,17 +50,5 @@
 - name: Configure timezone and ntp
   ansible.builtin.import_tasks: time.yml
 
-- name: Write /var/cache/xronos_ubuntu_common_ansible_upgraded
-  when: apply_upgrades
-  ansible.builtin.copy:
-    content: ""
-    dest: /var/cache/xronos_ubuntu_common_ansible_upgraded
-    force: false
-  become: true
-
-- name: Query restart required
-  ansible.builtin.stat:
-    path: /var/run/reboot-required
-  register: stat_result
-  changed_when: stat_result.stat.exists
-  notify: Restart server
+- name: Perform scheduled reboot
+  ansible.builtin.import_tasks: reboot.yml

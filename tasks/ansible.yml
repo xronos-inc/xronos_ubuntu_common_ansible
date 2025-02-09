@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: © 2021 Jeff C. Jensen
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
 # SPDX-License-Identifier: MIT
 #
-# Modifications Copyright © 2024 Xronos Inc.
+# Modifications Copyright (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # This file contains portions from Jeff C. Jensen under MIT 
@@ -9,30 +9,34 @@
 ---
 # boto3 is used by some Ansible AWS tasks (when run on the host)
 - name: Install boto3
+  become: true
   ansible.builtin.apt:
     pkg:
       - python3-boto3
       - python3-botocore
-    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
-  become: true
 
 # enable Ansible to sudo as unprivileged user
 - name: Install sudo & acl
+  become: true
   ansible.builtin.apt:
     pkg:
       - sudo
       - acl
-    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
-  become: true
 
 # enable ansible unzip module, as well as embedded unzip
 # such as get_url
 - name: Install compression & download tools
+  become: true
   ansible.builtin.apt:
     pkg:
       - unzip
       - gzip
       - curl
       - wget
-    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
+
+# tools useful for parsing ansible module output
+- name: Install utilities
   become: true
+  ansible.builtin.apt:
+    pkg:
+      - jq

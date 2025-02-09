@@ -1,35 +1,34 @@
-# SPDX-FileCopyrightText: © 2021 Jeff C. Jensen
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
 # SPDX-License-Identifier: MIT
 #
-# Modifications Copyright © 2024 Xronos Inc.
+# Modifications Copyright (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # This file contains portions from Jeff C. Jensen under MIT 
 # and modifications by Xronos Inc. under BSD-3-Clause.
 ---
-- name: Install tzdata
+- name: apt install tzdata
+  become: true
   ansible.builtin.apt:
     pkg:
       - tzdata
-    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
-  become: true
  
 - name: Set timezone
+  when: ubuntu_timezone | length > 0
+  become: true
   community.general.timezone:
     name: "{{ ubuntu_timezone }}"
-  become: true
 
 - name: Install ntp
-  ansible.builtin.apt:
-    pkg:   ntp
-    state: "{{ apply_upgrades | ternary('latest', 'present') }}"
-  become: true
   when: ubuntu_ntp_enable
+  become: true
+  ansible.builtin.apt:
+    pkg: ntp
 
 - name: Enable ntp
+  when: ubuntu_ntp_enable
+  become: true
   ansible.builtin.service:
     name: ntp
     state: started
     enabled: true
-  become: true
-  when: ubuntu_ntp_enable

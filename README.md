@@ -15,7 +15,7 @@ Provisioning host:
 
 Host that will be configured:
 
-- Ubuntu 22.04 or later
+- Ubuntu 22.04 or 24.04
 
 ## How to use this role
 
@@ -28,8 +28,13 @@ Add this role to your Ansible playbook file.
 
 ## Variables
 
-- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `"once"` to upgrade once per host, after which only `present` is checked.
+- `ubuntu_apt_upgrade` Upgrade packages? Otherwise install packages only if not present. Defaults to `"once"` to upgrade once per host. Values are `"once", "always", "no"`.
 - `ubuntu_disable_unattended_upgrades` Disable unattended upgrades? Defaults to `true`.
-- `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`
-- `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`
-- `ubuntu_trim_motd` Trim MOTD to minimal messages? Defaults to `false`
+- `ubuntu_timezone` Timezone to set. Defaults to `America/Los_Angeles`.
+- `ubuntu_ntp_enable` Install and start NTP service. Defaults to `true`.
+- `ubuntu_trim_motd` Trim MOTD to minimal messages? Defaults to `false`.
+
+## Versions
+
+- `ubuntu_snapshot` Snapshot to use for ubuntu archives. Follows `YYYYMMDDTHHMMSSZ` format, for example `20230302T030400Z` for 03:04 UTC on 2 March 2023. Defaults to empty (do not configure snapshots).
+- `ubuntu_python_version` Version of Python3 package to install. Defaults to empty (latest).

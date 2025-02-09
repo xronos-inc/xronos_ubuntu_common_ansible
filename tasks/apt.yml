@@ -7,14 +7,16 @@
 # This file contains portions from Jeff C. Jensen under MIT 
 # and modifications by Xronos Inc. under BSD-3-Clause.
 ---
-- name: apt install python3 {{ ubuntu_python_version if ubuntu_python_version else 'latest' }}
+- name: apt install aptitude
   become: true
   ansible.builtin.apt:
     pkg:
-      - python3-dev{{ '=' ~ ubuntu_python_version if ubuntu_python_version else '' }}
-      - python3-pip
-      - python3-virtualenv
-      - python3-setuptools
-      - python3-psutil
-      - python3-apt
-      - python3-debian
+      - aptitude
+  
+- name: apt install prerequisites
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common

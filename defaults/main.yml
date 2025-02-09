@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: © 2021 Jeff C. Jensen
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
 # SPDX-License-Identifier: MIT
 #
-# Modifications Copyright © 2024 Xronos Inc.
+# Modifications Copyright (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # This file contains portions from Jeff C. Jensen under MIT 
@@ -17,8 +17,13 @@ ubuntu_ntp_enable: true
 ubuntu_trim_motd: false
 
 # apt upgrade packages?
-# values: never, always, once
+# values: no, always, once
 ubuntu_apt_upgrade: "once"
 
 # disable unattended upgrades?
 ubuntu_disable_unattended_upgrades: true
+
+## versions
+
+ubuntu_snapshot:
+ubuntu_python_version: 

@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: © 2021 Jeff C. Jensen
+# SPDX-FileCopyrightText: (c) 2021 Jeff C. Jensen
 # SPDX-License-Identifier: MIT
 #
-# Modifications Copyright © 2024 Xronos Inc.
+# Modifications Copyright (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # This file contains portions from Jeff C. Jensen under MIT 
@@ -10,11 +10,14 @@
 galaxy_info:
   role_name: xronos_ubuntu_common_ansible
   company: Xronos Inc.
+  min_ansible_version: "2.15"
   description: "Common package management and configuration for Ubuntu servers."
   license: BSD-3-Clause
+  author: Jeff C. Jensen
   platforms:
     - name: Ubuntu
       versions:
-        - all
+        - jammy
+        - noble
 collections:
   - community.general
