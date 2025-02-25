@@ -18,6 +18,7 @@
   ansible.builtin.import_tasks: apt.yml
 
 - name: Configure snapshots for all repositories that support them
+  when: ubuntu_snapshot
   register: _snapshot
   become: true
   ansible.builtin.copy:
