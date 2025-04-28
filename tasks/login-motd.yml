@@ -16,7 +16,7 @@
 - name: Set news message of the day to empty
   become: true
   ansible.builtin.copy:
-    content: ""
+    content: "#!/bin/sh"
     dest:  /etc/update-motd.d/50-motd-news
     force: true
     mode: 0755
